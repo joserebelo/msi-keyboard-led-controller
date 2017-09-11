@@ -5,10 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MSI_Keyboard_LED_Controller.Utilities;
 using Newtonsoft.Json;
 
 namespace MSI_Keyboard_LED_Controller.Controller {
     class Configuration {
+        public static readonly string ConfigLocation = Startup.ExeDirectoryPath() + @"\config.json";
+
         public bool OnScreenOff = true;
         public bool OnScreenLocked = false;
         public bool Enabled = true;
@@ -18,12 +21,12 @@ namespace MSI_Keyboard_LED_Controller.Controller {
         }
 
         public static Configuration Load() {
-            if (!File.Exists(@"config.json")) {
+            if (!File.Exists(ConfigLocation)) {
                 return new Configuration();
             }
 
             string text;
-            var fileStream = new FileStream(@"config.json", FileMode.Open, FileAccess.Read);
+            var fileStream = new FileStream(ConfigLocation, FileMode.Open, FileAccess.Read);
 
             using (var streamReader = new StreamReader(fileStream, Encoding.UTF8)) {
                 text = streamReader.ReadToEnd();
@@ -35,7 +38,7 @@ namespace MSI_Keyboard_LED_Controller.Controller {
         public void Save() {
             var json = JsonConvert.SerializeObject(this);
 
-            File.WriteAllText(@"config.json", json);
+            File.WriteAllText(ConfigLocation, json);
         }
     }
 }

@@ -5,11 +5,14 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using MSI_Keyboard_LED_Controller.Utilities;
 using Newtonsoft.Json;
 
 namespace MSI_Keyboard_LED_Controller.Controller {
     [Serializable]
     public class Profile : ICloneable {
+        public static readonly string ProfilesLocation = Startup.ExeDirectoryPath() + @"\profiles.json";
+
         public enum ProfileMode {
             // Built-in modes
             Normal = 1,
@@ -48,12 +51,12 @@ namespace MSI_Keyboard_LED_Controller.Controller {
         }
 
         public static List<Profile> Load() {
-            if (!File.Exists(@"profiles.json")) {
+            if (!File.Exists(ProfilesLocation)) {
                 return new List<Profile>();
             }
 
             string text;
-            var fileStream = new FileStream(@"profiles.json", FileMode.Open, FileAccess.Read);
+            var fileStream = new FileStream(ProfilesLocation, FileMode.Open, FileAccess.Read);
 
             using (var streamReader = new StreamReader(fileStream, Encoding.UTF8)) {
                 text = streamReader.ReadToEnd();
@@ -65,7 +68,7 @@ namespace MSI_Keyboard_LED_Controller.Controller {
         public static void Save(List<Profile> list) {
             var json = JsonConvert.SerializeObject(list);
 
-            File.WriteAllText(@"profiles.json", json);
+            File.WriteAllText(ProfilesLocation, json);
         }
 
         public object Clone() {
