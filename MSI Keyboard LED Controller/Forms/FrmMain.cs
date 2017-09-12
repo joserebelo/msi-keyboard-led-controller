@@ -9,12 +9,29 @@ namespace MSI_Keyboard_LED_Controller {
         private Controller.Controller _controller;
         private bool _terminateApplication = false;
         private bool _showWindow;
-        
+
         public FrmMain(bool showWindow) {
             InitializeComponent();
 
             // TODO window blinks on startup
             _showWindow = showWindow;
+        }
+
+        protected override void WndProc(ref Message m) {
+            if (m.Msg == NativeMethods.WmShowMe) {
+                if (!this.Visible) {
+                    this.Show();
+                } else {
+                    if (WindowState == FormWindowState.Minimized) {
+                        WindowState = FormWindowState.Normal;
+                    }
+
+                    bool top = TopMost;
+                    TopMost = true;
+                    TopMost = top;
+                }
+            }
+            base.WndProc(ref m);
         }
 
         private void FrmMain_Load(object sender, EventArgs e) {
