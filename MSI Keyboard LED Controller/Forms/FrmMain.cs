@@ -134,6 +134,11 @@ namespace MSI_Keyboard_LED_Controller {
             _controller.Configuration.Save();
         }
 
+        private void ChkOffOnBattery_CheckedChanged(object sender, EventArgs e) {
+            _controller.Configuration.OffOnBattery = ChkOffOnBattery.Checked;
+            _controller.Configuration.Save();
+        }
+
         private void ChkStartup_CheckedChanged(object sender, EventArgs e) {
             if (ChkStartup.Checked)
                 Startup.Add();

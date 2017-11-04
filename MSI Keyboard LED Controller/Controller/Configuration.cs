@@ -14,6 +14,7 @@ namespace MSI_Keyboard_LED_Controller.Controller {
 
         public bool OnScreenOff = true;
         public bool OnScreenLocked = false;
+        public bool OffOnBattery = false;
         public bool Enabled = true;
         public int SelectedProfile = -1;
 

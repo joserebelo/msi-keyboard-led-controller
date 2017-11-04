@@ -52,7 +52,7 @@ namespace MSI_Keyboard_LED_Controller.Controller {
                         _timer.Stop();
                         _timer.Enabled = false;
 
-                        _keyboard.Set((Keyboard.CmdMode)p.Mode, p.Colors);
+                        _keyboard.Set((Keyboard.CmdMode) p.Mode, p.Colors);
                         break;
                     case Profile.ProfileMode.Audio2:
                     case Profile.ProfileMode.Rainbow:
@@ -90,14 +90,14 @@ namespace MSI_Keyboard_LED_Controller.Controller {
 
             switch (e.Reason) {
                 case SessionSwitchReason.SessionLock:
-                    if (Configuration.Enabled) {
-                        _keyboard.TurnOff();
-                        _timer.Stop();
-                        _timer.Enabled = false;
-                    }
+                    _keyboard.TurnOff();
+                    _timer.Stop();
+                    _timer.Enabled = false;
                     break;
                 case SessionSwitchReason.SessionUnlock:
-                    Update();
+                    if (!Configuration.OffOnBattery || IsCharging()) {
+                        Update();
+                    }
                     break;
             }
         }
@@ -109,12 +109,26 @@ namespace MSI_Keyboard_LED_Controller.Controller {
 
             switch (e.Mode) {
                 case PowerModes.Resume:
-                    Update();
+                    if (!Configuration.OffOnBattery || IsCharging()) {
+                        Update();
+                    }
                     break;
                 case PowerModes.Suspend:
                     _keyboard.TurnOff();
                     _timer.Stop();
                     _timer.Enabled = false;
+                    break;
+                case PowerModes.StatusChange:
+                    if (Configuration.OffOnBattery) {
+                        if (IsCharging()) {
+                            Update();
+                        } else {
+                            _keyboard.TurnOff();
+                            _timer.Stop();
+                            _timer.Enabled = false;
+                        }
+                    }
+
                     break;
             }
         }
@@ -124,13 +138,19 @@ namespace MSI_Keyboard_LED_Controller.Controller {
             if (!Configuration.Enabled || !Configuration.OnScreenOff)
                 return;
 
-            if (PowerManager.IsMonitorOn) {
+            if (PowerManager.IsMonitorOn && (!Configuration.OffOnBattery || IsCharging())) {
                 Update();
             } else {
                 _keyboard.TurnOff();
                 _timer.Stop();
                 _timer.Enabled = false;
             }
+        }
+
+        private Boolean IsCharging() {
+            PowerStatus power = SystemInformation.PowerStatus;
+
+            return power.PowerLineStatus == PowerLineStatus.Online;
         }
     }
 }

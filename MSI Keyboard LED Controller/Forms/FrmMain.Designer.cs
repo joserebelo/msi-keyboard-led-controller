@@ -41,6 +41,7 @@ namespace MSI_Keyboard_LED_Controller {
             this.ChkScreenOff = new System.Windows.Forms.CheckBox();
             this.BtnAbout = new System.Windows.Forms.Button();
             this.ChkScreenLocked = new System.Windows.Forms.CheckBox();
+            this.ChkOffOnBattery = new System.Windows.Forms.CheckBox();
             this.TrayMenu.SuspendLayout();
             this.GroupBoxProfiles.SuspendLayout();
             this.SuspendLayout();
@@ -104,7 +105,7 @@ namespace MSI_Keyboard_LED_Controller {
             this.GroupBoxProfiles.Controls.Add(this.BtnNew);
             this.GroupBoxProfiles.Location = new System.Drawing.Point(12, 12);
             this.GroupBoxProfiles.Name = "GroupBoxProfiles";
-            this.GroupBoxProfiles.Size = new System.Drawing.Size(324, 191);
+            this.GroupBoxProfiles.Size = new System.Drawing.Size(324, 178);
             this.GroupBoxProfiles.TabIndex = 1;
             this.GroupBoxProfiles.TabStop = false;
             this.GroupBoxProfiles.Text = "Profiles";
@@ -117,7 +118,7 @@ namespace MSI_Keyboard_LED_Controller {
             this.ListBoxProfiles.FormattingEnabled = true;
             this.ListBoxProfiles.Location = new System.Drawing.Point(6, 50);
             this.ListBoxProfiles.Name = "ListBoxProfiles";
-            this.ListBoxProfiles.Size = new System.Drawing.Size(312, 134);
+            this.ListBoxProfiles.Size = new System.Drawing.Size(312, 121);
             this.ListBoxProfiles.TabIndex = 3;
             this.ListBoxProfiles.SelectedIndexChanged += new System.EventHandler(this.ListBoxProfiles_SelectedIndexChanged);
             this.ListBoxProfiles.DoubleClick += new System.EventHandler(this.ListBoxProfiles_DoubleClick);
@@ -163,7 +164,7 @@ namespace MSI_Keyboard_LED_Controller {
             // 
             // ChkStartup
             // 
-            this.ChkStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ChkStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ChkStartup.AutoSize = true;
             this.ChkStartup.Location = new System.Drawing.Point(238, 215);
             this.ChkStartup.Name = "ChkStartup";
@@ -177,7 +178,7 @@ namespace MSI_Keyboard_LED_Controller {
             // 
             this.ChkScreenOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ChkScreenOff.AutoSize = true;
-            this.ChkScreenOff.Location = new System.Drawing.Point(12, 215);
+            this.ChkScreenOff.Location = new System.Drawing.Point(12, 196);
             this.ChkScreenOff.Name = "ChkScreenOff";
             this.ChkScreenOff.Size = new System.Drawing.Size(142, 17);
             this.ChkScreenOff.TabIndex = 1;
@@ -200,7 +201,7 @@ namespace MSI_Keyboard_LED_Controller {
             // 
             this.ChkScreenLocked.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ChkScreenLocked.AutoSize = true;
-            this.ChkScreenLocked.Location = new System.Drawing.Point(12, 238);
+            this.ChkScreenLocked.Location = new System.Drawing.Point(12, 219);
             this.ChkScreenLocked.Name = "ChkScreenLocked";
             this.ChkScreenLocked.Size = new System.Drawing.Size(162, 17);
             this.ChkScreenLocked.TabIndex = 3;
@@ -208,11 +209,24 @@ namespace MSI_Keyboard_LED_Controller {
             this.ChkScreenLocked.UseVisualStyleBackColor = true;
             this.ChkScreenLocked.CheckedChanged += new System.EventHandler(this.ChkScreenLocked_CheckedChanged);
             // 
+            // ChkOffOnBattery
+            // 
+            this.ChkOffOnBattery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ChkOffOnBattery.AutoSize = true;
+            this.ChkOffOnBattery.Location = new System.Drawing.Point(12, 242);
+            this.ChkOffOnBattery.Name = "ChkOffOnBattery";
+            this.ChkOffOnBattery.Size = new System.Drawing.Size(154, 17);
+            this.ChkOffOnBattery.TabIndex = 4;
+            this.ChkOffOnBattery.Text = "Turn off when not charging";
+            this.ChkOffOnBattery.UseVisualStyleBackColor = true;
+            this.ChkOffOnBattery.CheckedChanged += new System.EventHandler(this.ChkOffOnBattery_CheckedChanged);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(348, 267);
+            this.Controls.Add(this.ChkOffOnBattery);
             this.Controls.Add(this.ChkScreenLocked);
             this.Controls.Add(this.BtnAbout);
             this.Controls.Add(this.ChkScreenOff);
@@ -250,6 +264,7 @@ namespace MSI_Keyboard_LED_Controller {
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enabledToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.CheckBox ChkOffOnBattery;
     }
 }
 
