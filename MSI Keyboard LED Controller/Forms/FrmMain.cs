@@ -176,6 +176,9 @@ namespace MSI_Keyboard_LED_Controller {
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
+            this._showWindow = true;
+            this.Opacity = 1;
+            this.ShowInTaskbar = true;
             this.Show();
         }
 
